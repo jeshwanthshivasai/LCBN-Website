@@ -1,35 +1,42 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import { Suspense } from 'react';
+import { Navbar } from './components/layout/Navbar';
+import { Footer } from './components/layout/Footer';
+import { Hero } from './components/home/Hero';
+import { Preloader } from './components/layout/Preloader';
+import { HeroCanvas } from './canvas/HeroCanvas';
+import { useLenis } from './hooks/useLenis';
+
+import { Blueprint } from './components/home/Blueprint';
+import { Investigation } from './components/home/Investigation';
+import { KnowledgeCenter } from './components/home/KnowledgeCenter';
+import { Audience } from './components/home/Audience';
+import { Stats } from './components/home/Stats';
 
 function App() {
-  const [count, setCount] = useState(0)
+  // Initialize Lenis smooth scroll globally
+  useLenis();
 
   return (
-    <>
-      <div>
-        <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
-  )
+    <div className="relative w-full min-h-screen bg-[#0a0a0a] text-white selection:bg-[#96CC39] selection:text-black">
+      <Suspense fallback={null}>
+        <Preloader />
+      </Suspense>
+
+      <Navbar />
+      
+      <main className="relative w-full z-10">
+        <HeroCanvas />
+        <Hero />
+        <Blueprint />
+        <Investigation />
+        <KnowledgeCenter />
+        <Audience />
+        <Stats />
+      </main>
+
+      <Footer />
+    </div>
+  );
 }
 
-export default App
+export default App;
